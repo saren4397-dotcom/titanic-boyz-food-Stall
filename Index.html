@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Titanic Boyz Food Center | Order Online</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:#fff}
+nav{position:sticky;top:0;z-index:10;background:#111;border-bottom:1px solid #333;padding:12px 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;color:#ffc107;font-size:20px}.navlinks a{color:#fff;text-decoration:none;margin-left:18px}
+.hero{padding:75px 6%;text-align:center;background:linear-gradient(135deg,#241600,#0b0b0b 60%)}.hero h1{font-size:clamp(42px,9vw,78px);margin:0;color:#ffc107}.hero h1 span{color:#fff}.hero p{font-size:20px;color:#ddd}.btn{display:inline-block;padding:13px 20px;border-radius:10px;text-decoration:none;font-weight:800;margin:6px}.order{background:#25d366;color:#061b0b}.menuBtn{background:#ffc107;color:#111}
+section{max-width:1100px;margin:auto;padding:55px 5%}.title{text-align:center;color:#ffc107;font-size:34px;margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.item{background:#151515;border:1px solid #333;border-radius:16px;overflow:hidden;padding-bottom:16px}.food{height:145px;background:linear-gradient(135deg,#3b2500,#171717);display:flex;align-items:center;justify-content:center;font-size:55px}.item h3,.item p,.item .row{margin-left:16px;margin-right:16px}.item h3{margin-bottom:5px}.item p{color:#aaa;font-size:14px;min-height:38px}.row{display:flex;justify-content:space-between;align-items:center}.price{color:#ffc107;font-size:22px;font-weight:900}.add{border:0;background:#ffc107;padding:9px 13px;border-radius:8px;font-weight:800;cursor:pointer}
+.about,.contact{background:#111;border-top:1px solid #292929}.contactbox{background:#171717;padding:22px;border-radius:14px}.contactgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cart{position:fixed;right:16px;bottom:16px;background:#ffc107;color:#111;padding:15px 20px;border-radius:30px;font-weight:900;box-shadow:0 6px 20px #000;z-index:20;cursor:pointer}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:30;padding:25px}.box{max-width:520px;margin:5vh auto;background:#171717;padding:25px;border-radius:18px}.box h2{color:#ffc107}.cartline{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #333}.total{font-size:22px;font-weight:900;margin-top:18px}.wa{display:block;text-align:center;background:#25d366;color:#061b0b;padding:14px;border-radius:10px;text-decoration:none;font-weight:900;margin-top:18px}.close{float:right;background:none;border:0;color:#fff;font-size:25px}
+footer{text-align:center;padding:30px;color:#999;background:#050505}
+@media(max-width:650px){.navlinks a{margin-left:8px;font-size:13px}.contactgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><div class="logo">🍴 TAITANIC BOYZ</div><div class="navlinks"><a href="#menu">Menu</a><a href="#contact">Contact</a></div></nav>
+
+<header class="hero">
+<div style="color:#ffc107;font-weight:bold">🔥 HOT • FRESH • TASTY</div>
+<h1>TAITANIC <span>BOYZ</span></h1><h2>FOOD CENTER</h2>
+<p>Good Food • Good Mood ❤️</p>
+<a class="btn order" href="https://wa.me/917872776428" target="_blank">💬 Order on WhatsApp</a>
+<a class="btn menuBtn" href="#menu">🍽️ Explore Menu</a>
+</header>
+
+<section id="menu">
+<h2 class="title">Our Popular Menu</h2>
+<div class="grid" id="items"></div>
+</section>
+
+<section class="about"><h2 class="title">Why Titanic Boyz?</h2>
+<p style="text-align:center;color:#ccc;max-width:750px;margin:auto;font-size:17px">Freshly prepared food, tasty portions and pocket-friendly prices. Perfect for a quick snack, evening hangout or a full meal with friends and family.</p></section>
+
+<section id="contact" class="contact">
+<h2 class="title">Visit & Order</h2>
+<div class="contactgrid">
+<div class="contactbox"><h3>👨‍🍳 Anup Mahato</h3><p>Proprietor</p><p>📞 <a style="color:#ffc107" href="tel:7872776428">7872776428</a></p></div>
+<div class="contactbox"><h3>📍 Find Us</h3><p>Bora School Bazar, Near Kalimandir</p><p>Paschim Midnapore, West Bengal</p></div>
+</div></section>
+
+<div class="cart" onclick="openCart()">🛒 Cart (<span id="count">0</span>)</div>
+<div class="modal" id="modal"><div class="box"><button class="close" onclick="closeCart()">×</button><h2>Your Order</h2><div id="cart"></div><div class="total">Total: ₹<span id="total">0</span></div><a id="wa" class="wa" target="_blank">Send Order on WhatsApp</a></div></div>
+
+<footer>© 2026 Titanic Boyz Food Center • Always Served With Love ❤️</footer>
+
+<script>
+const products=[
+["Kurkure Momo","Crunchy & delicious momo","30","🥟"],
+["Fried Momo","Golden fried momos","30","🥟"],
+["Chicken Pakora","Crispy chicken pakora","20","🍗"],
+["Noodles","Hot & tasty noodles","30","🍜"],
+["Roll","Freshly prepared roll","30","🌯"],
+["Moglai Porota","Flaky & filling","50","🥙"],
+["Fried Rice + Chicken","Fried rice with chicken","80","🍚"],
+["Chowmin + Chicken","Loaded noodles with chicken","80","🍜"],
+["Fried Rice + Veg Manchurian","Veg combo meal","60","🍚"],
+["Noodles + Veg Manchurian","Noodles with Manchurian","60","🍜"]
+];
+let cart=[];
+const items=document.getElementById("items");
+products.forEach((p,i)=>{items.innerHTML+=`<div class="item"><div class="food">${p[3]}</div><h3>${p[0]}</h3><p>${p[1]}</p><div class="row"><span class="price">₹${p[2]}</span><button class="add" onclick="add(${i})">+ Add</button></div></div>`});
+function add(i){cart.push(products[i]);document.getElementById("count").textContent=cart.length}
+function openCart(){document.getElementById("modal").style.display="block";render()}
+function closeCart(){document.getElementById("modal").style.display="none"}
+function render(){let t=0,html="";cart.forEach((p,i)=>{t+=+p[2];html+=`<div class="cartline"><span>${p[0]}</span><b>₹${p[2]}</b></div>`});document.getElementById("cart").innerHTML=html||"<p style='color:#aaa'>Your cart is empty.</p>";document.getElementById("total").textContent=t;
+let text="Hello Titanic Boyz Food Center! I want to order:%0A"+cart.map(p=>"- "+p[0]+" ₹"+p[2]).join("%0A")+"%0A%0ATotal: ₹"+t;
+document.getElementById("wa").href="https://wa.me/917872776428?text="+text}
+</script>
+</body>
+</html>
